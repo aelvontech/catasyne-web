@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CataSyne | 244-Compound Specialty Chemicals Catalog &amp; Sourcing</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            catasyne: {
+              indigo: '#15094D',
+              indigoLight: '#23136B',
+              violet: '#6A23F5',
+              violetHover: '#5818D8',
+              surface: '#F8F8FC',
+              lavender: '#F2F0FA',
+              border: '#E5E2F2',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      color: #15094D;
+      background-color: #FFFFFF;
+      -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3, h4, .font-display {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .font-mono-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+    /* Molecular grid preserved strictly on the Product Details 2D structure preview canvas */
+    .bg-molecular-grid {
+      background-size: 36px 36px;
+      background-image:
+        linear-gradient(to right, rgba(21, 9, 77, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(21, 9, 77, 0.04) 1px, transparent 1px);
+    }
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F8F8FC;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #D0CBE6;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #6A23F5;
+    }
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+    }
+  </style>
+</head>
+<body class="bg-white text-catasyne-indigo selection:bg-catasyne-violet selection:text-white">
+
+  <!-- ===================================================================== -->
+  <!-- 1. STICKY NAVIGATION BAR                                              -->
+  <!-- ===================================================================== -->
+  <header class="sticky top-0 z-40 w-full bg-white/95 backdrop-blur-md border-b border-catasyne-border">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between gap-4">
+
+      <!-- Left: CataSyne Logo + Wordmark (No "Specialty Molecules" below CataSyne) -->
+      <a href="#" onclick="navigateToHome(event)" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-9 h-9 flex items-center justify-center rounded-lg bg-catasyne-surface border border-catasyne-border group-hover:border-catasyne-violet/40 transition-colors p-1.5">
+          <svg viewBox="0 0 100 100" class="w-full h-full overflow-visible" aria-label="CataSyne Logo">
+            <line x1="50" y1="14" x2="18.8" y2="32" stroke="#15094D" stroke-width="8.5" stroke-linecap="round"/>
+            <line x1="18.8" y1="32" x2="18.8" y2="68" stroke="#15094D" stroke-width="8.5" stroke-linecap="round"/>
+            <line x1="18.8" y1="68" x2="50" y2="86" stroke="#15094D" stroke-width="8.5" stroke-linecap="round"/>
+            <line x1="50" y1="14" x2="81.2" y2="32" stroke="#6A23F5" stroke-width="8.5" stroke-linecap="round"/>
+            <line x1="50" y1="86" x2="81.2" y2="68" stroke="#6A23F5" stroke-width="8.5" stroke-linecap="round"/>
+            <circle cx="50" cy="14" r="10.5" fill="#15094D"/>
+            <circle cx="18.8" cy="32" r="10.5" fill="#15094D"/>
+            <circle cx="18.8" cy="68" r="10.5" fill="#15094D"/>
+            <circle cx="50" cy="86" r="10.5" fill="#15094D"/>
+            <circle cx="81.2" cy="32" r="10.5" fill="#6A23F5"/>
+            <circle cx="81.2" cy="68" r="10.5" fill="#6A23F5"/>
+          </svg>
+        </div>
+        <span class="font-display font-bold text-xl tracking-tight text-catasyne-indigo leading-none">
+          Cata<span class="text-catasyne-violet">Syne</span>
+        </span>
+      </a>
+
+      <!-- Center: Primary Navigation Links -->
+      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
+        <a href="#home-hero" onclick="navigateToHome(event)" class="hover:text-catasyne-violet transition-colors">Home</a>
+        <a href="#catalog" onclick="navigateToSection(event, 'catalog')" class="hover:text-catasyne-violet transition-colors">Products</a>
+        <a href="#capabilities" onclick="navigateToSection(event, 'capabilities')" class="hover:text-catasyne-violet transition-colors">Sourcing &amp; RFQ</a>
+      </nav>
+
+      <!-- Right: Quick Search Trigger, Inquiry List Drawer & RFQ CTA -->
+      <div class="flex items-center gap-2.5 sm:gap-3">
+        <button onclick="focusCatalogSearch()" title="Search 244 Compounds (Press /)" class="hidden lg:flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-500 bg-catasyne-surface hover:bg-catasyne-lavender border border-catasyne-border rounded-lg transition-colors">
+          <svg class="w-3.5 h-3.5 text-catasyne-indigo" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <span id="nav-search-label">Search CAS...</span>
+          <kbd class="font-mono-code text-[10px] px-1.5 py-0.5 bg-white border border-catasyne-border rounded text-slate-400">/</kbd>
+        </button>
+
+        <button onclick="toggleRfqDrawer(true)" class="relative flex items-center gap-2 px-3.5 py-2 text-xs sm:text-sm font-medium text-catasyne-indigo bg-white hover:bg-catasyne-surface border border-catasyne-border rounded-lg transition-all">
+          <svg class="w-4 h-4 text-catasyne-violet" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/>
+          </svg>
+          <span class="hidden sm:inline">Inquiry List</span>
+          <span id="nav-rfq-count" class="inline-flex items-center justify-center min-w-[20px] h-5 px-1.5 text-xs font-mono-code font-semibold rounded-full bg-catasyne-lavender text-catasyne-violet">0</span>
+        </button>
+
+        <button onclick="openCustomSynthesisModal()" class="px-4 py-2 text-xs sm:text-sm font-semibold text-white bg-catasyne-violet hover:bg-catasyne-violetHover rounded-lg shadow-sm shadow-catasyne-violet/20 transition-all">
+          Request Quote / Sample
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 1: HOME & 244-COMPOUND CATALOG VIEW                              -->
+  <!-- ===================================================================== -->
+  <main id="catalog-home-view">
+
+    <!-- Clean Solid White Hero Section -->
+    <section id="home-hero" class="bg-white border-b border-catasyne-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20">
+        <div class="max-w-3xl mx-auto text-center">
+          <div id="hero-db-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-catasyne-lavender border border-catasyne-violet/20 text-catasyne-violet text-xs font-mono-code font-semibold tracking-wider uppercase mb-6">
+            <span class="w-2 h-2 rounded-full bg-catasyne-violet"></span>
+            Verified Compound Database • Live Google Sheets Sync
+          </div>
+
+          <h1 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-catasyne-indigo leading-[1.12] mb-5">
+            Precision Specialty Chemicals, <span class="text-catasyne-violet">Engineered for Scale.</span>
+          </h1>
+
+          <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8">
+            Source verified specialty intermediates, catalysts, agrochemicals, electronics precursors, and performance molecules directly from the CataSyne 244-compound technical database.
+          </p>
+
+          <div class="flex flex-wrap items-center justify-center gap-3.5 mb-10">
+            <button id="hero-browse-btn" onclick="scrollToCatalog()" class="px-6 py-3 bg-catasyne-indigo hover:bg-catasyne-violet text-white text-sm font-semibold rounded-xl transition-colors shadow-xs">
+              Browse Compounds
+            </button>
+            <button onclick="openCustomSynthesisModal()" class="px-6 py-3 bg-white hover:bg-catasyne-surface text-catasyne-indigo border border-catasyne-border text-sm font-semibold rounded-xl transition-colors">
+              Submit Sourcing RFQ
+            </button>
+          </div>
+
+          <!-- Quick-Access Primary Industry Entry Points -->
+          <div id="quick-industry-pills" class="flex flex-wrap items-center justify-center gap-2 text-xs">
+            <!-- Populated dynamically from Primary Industry values -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- 244-COMPOUND SPECIALTY CHEMICALS CATALOG (FILTERED BY PRIMARY       -->
+    <!-- INDUSTRY & PRIMARY CATEGORY ONLY + OPTIONAL TEXT SEARCH)            -->
+    <!-- =================================================================== -->
+    <section id="catalog" class="py-14 sm:py-20 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <!-- Section Header + View Toggle -->
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
+          <div>
+            <span id="catalog-db-subtitle" class="text-xs font-mono-code font-semibold uppercase tracking-widest text-catasyne-violet">Complete Database • Live Sync</span>
+            <h2 class="font-display text-2xl sm:text-3xl font-bold text-catasyne-indigo mt-1">Specialty Chemicals Catalog</h2>
+            <p class="text-sm text-slate-500 mt-1">Filter dynamically by Primary Industry and Primary Category, or search by name, CAS number, or molecular formula.</p>
+          </div>
+
+          <div class="flex items-center gap-3 self-start md:self-auto">
+            <div class="inline-flex p-1 bg-catasyne-surface border border-catasyne-border rounded-lg">
+              <button id="btn-view-grid" onclick="setViewMode('grid')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-catasyne-indigo shadow-sm transition-all">
+                <svg class="w-3.5 h-3.5 text-catasyne-violet" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+                Card Grid
+              </button>
+              <button id="btn-view-table" onclick="setViewMode('table')" class="flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-slate-500 hover:text-catasyne-indigo transition-all">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M3 6h18M3 12h18M3 18h18"/></svg>
+                Catalog Table
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Primary Industry Filter Controls -->
+        <div class="mb-4">
+          <div class="text-[11px] font-mono-code uppercase tracking-wider text-slate-400 font-semibold mb-2">Primary Industry</div>
+          <div id="primary-industry-tabs" class="flex items-center gap-2 overflow-x-auto no-scrollbar pb-2">
+            <!-- Populated dynamically via JS -->
+          </div>
+        </div>
+
+        <!-- Primary Category Filter Selector & Optional Search Bar -->
+        <div class="bg-catasyne-surface border border-catasyne-border rounded-xl p-3.5 sm:p-4 mb-8 flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3.5">
+          <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 flex-1">
+            <!-- Primary Category Select -->
+            <div class="sm:w-72">
+              <label for="select-primary-category" class="sr-only">Primary Category</label>
+              <select id="select-primary-category" onchange="handlePrimaryCategoryChange(this.value)" class="w-full px-3.5 py-2 text-xs sm:text-sm bg-white border border-catasyne-border rounded-lg text-catasyne-indigo font-medium focus:outline-none focus:border-catasyne-violet">
+                <option value="All">Primary Category: All Categories</option>
+              </select>
+            </div>
+
+            <!-- Optional Text Search by Name / CAS / Formula -->
+            <div class="relative flex-1 max-w-md">
+              <svg class="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+              <input
+                id="catalog-search-input"
+                type="text"
+                placeholder="Search by compound name, CAS, or formula..."
+                oninput="handleSearchInput(this.value)"
+                class="w-full pl-9 pr-3 py-2 text-xs sm:text-sm bg-white border border-catasyne-border rounded-lg text-catasyne-indigo placeholder-slate-400 focus:outline-none focus:border-catasyne-violet"
+              />
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between md:justify-end gap-3 text-xs text-slate-500">
+            <span>Showing <strong id="results-count" class="text-catasyne-indigo font-mono-code">0</strong> of <span id="total-compounds-count" class="font-mono-code">0</span> compounds</span>
+            <button id="btn-reset-filters" onclick="resetFilters()" class="hidden text-catasyne-violet hover:underline font-semibold">
+              Reset filters
+            </button>
+          </div>
+        </div>
+
+        <!-- CARD GRID CONTAINER -->
+        <div id="catalog-grid-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+
+        <!-- CATALOG TABLE CONTAINER -->
+        <div id="catalog-table-container" class="hidden overflow-x-auto bg-white border border-catasyne-border rounded-xl shadow-2xs">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="bg-catasyne-surface border-b border-catasyne-border text-[11px] font-mono-code uppercase tracking-wider text-slate-500">
+                <th class="py-3.5 px-4">ID &amp; CAS</th>
+                <th class="py-3.5 px-4">Compound Name</th>
+                <th class="py-3.5 px-4">Primary Industry</th>
+                <th class="py-3.5 px-4">Primary Category</th>
+                <th class="py-3.5 px-4">Formula / MW</th>
+                <th class="py-3.5 px-4">GHS Signal</th>
+                <th class="py-3.5 px-4 text-right">Action</th>
+              </tr>
+            </thead>
+            <tbody id="catalog-table-body" class="divide-y divide-catasyne-border text-sm"></tbody>
+          </table>
+        </div>
+
+        <!-- EMPTY STATE -->
+        <div id="catalog-empty-state" class="hidden text-center py-14 px-4 bg-catasyne-surface border border-catasyne-border rounded-2xl">
+          <h3 class="font-display text-lg font-bold text-catasyne-indigo">No compounds match the selected Primary Industry / Primary Category</h3>
+          <p class="text-sm text-slate-500 max-w-md mx-auto mt-1 mb-5">
+            Reset your filters or submit a custom sourcing request to our team.
+          </p>
+          <div class="flex flex-wrap items-center justify-center gap-3">
+            <button onclick="resetFilters()" class="px-4 py-2 text-xs font-semibold bg-white border border-catasyne-border text-catasyne-indigo rounded-lg hover:bg-catasyne-lavender transition-colors">
+              Reset Filters
+            </button>
+            <button onclick="openCustomSynthesisModal()" class="px-4 py-2 text-xs font-semibold bg-catasyne-violet text-white rounded-lg hover:bg-catasyne-violetHover transition-colors">
+              Request Quote / Sample
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- PLATFORM INFRASTRUCTURE SECTION                                     -->
+    <!-- =================================================================== -->
+    <section id="capabilities" class="py-14 sm:py-20 bg-catasyne-surface border-t border-catasyne-border">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mb-10">
+          <span class="text-xs font-mono-code font-semibold uppercase tracking-widest text-catasyne-violet">Platform Infrastructure</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-bold text-catasyne-indigo mt-1">
+            Global Specialty Chemical Sourcing &amp; Supply Chain
+          </h2>
+          <p class="text-sm sm:text-base text-slate-600 mt-3 leading-relaxed">
+            Partnered with pre-audited cGMP, ISO 9001, and ISO 14001 production plants across India, Europe, and East Asia for resilient dual-sourcing.
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white border border-catasyne-border rounded-2xl p-6">
+            <div class="text-[11px] font-mono-code text-catasyne-violet uppercase tracking-wider font-semibold mb-1.5">01 / Catalog &amp; Intermediates</div>
+            <h3 id="infra-compound-count" class="font-display text-base font-bold text-catasyne-indigo mb-2">Verified Compounds</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Structured technical entries spanning CAS registry numbers, molecular formulas, SMILES, InChIKeys, GHS hazard classifications, and physical properties.
+            </p>
+          </div>
+
+          <div class="bg-white border border-catasyne-border rounded-2xl p-6">
+            <div class="text-[11px] font-mono-code text-catasyne-violet uppercase tracking-wider font-semibold mb-1.5">02 / Multi-Region Manufacturing</div>
+            <h3 class="font-display text-base font-bold text-catasyne-indigo mb-2">Audited Production Network</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Partnered with pre-audited cGMP, ISO 9001, and ISO 14001 production plants across India, Europe, and East Asia for resilient dual-sourcing.
+            </p>
+          </div>
+
+          <div class="bg-white border border-catasyne-border rounded-2xl p-6">
+            <div class="text-[11px] font-mono-code text-catasyne-violet uppercase tracking-wider font-semibold mb-1.5">03 / Direct RFQ &amp; Documentation</div>
+            <h3 class="font-display text-base font-bold text-catasyne-indigo mb-2">Sample &amp; Commercial Quotes</h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Request laboratory samples, pilot volumes, or bulk supply quotes with COA, MSDS, and SDS available on request.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ===================================================================== -->
+  <!-- VIEW 2: PRODUCT DETAILS PAGE                                          -->
+  <!-- ===================================================================== -->
+  <section id="product-details-view" class="hidden min-h-screen bg-white pb-20">
+
+    <!-- Top Breadcrumb Bar -->
+    <div class="bg-catasyne-surface border-b border-catasyne-border sticky top-[65px] z-30">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2 sm:gap-3 text-xs min-w-0">
+          <button onclick="navigateToHome()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-catasyne-lavender text-catasyne-indigo hover:text-catasyne-violet font-semibold border border-catasyne-border transition-colors shrink-0">
+            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
+            Back to Catalog
+          </button>
+          <span class="text-slate-300 hidden sm:inline">/</span>
+          <span id="detail-breadcrumb-industry" class="hidden sm:inline text-slate-500 font-medium truncate">Primary Industry</span>
+          <span class="text-slate-300 hidden md:inline">/</span>
+          <span id="detail-breadcrumb-name" class="hidden md:inline font-mono-code font-semibold text-catasyne-indigo truncate max-w-xs">Compound Name</span>
+        </div>
+
+        <button onclick="openRfqForActiveCompound()" class="px-3.5 py-1.5 text-xs font-semibold text-white bg-catasyne-violet hover:bg-catasyne-violetHover rounded-lg transition-colors">
+          Request Quote / Sample
+        </button>
+      </div>
+    </div>
+
+    <!-- Product Details Content -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 sm:pt-10">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+
+        <!-- Left / Main Technical Column -->
+        <div class="lg:col-span-8 space-y-8">
+
+          <!-- Header & Identifiers -->
+          <div class="border-b border-catasyne-border pb-7">
+            <div class="flex flex-wrap items-center gap-2 mb-3">
+              <span id="detail-id-badge" class="px-2.5 py-1 rounded-md text-xs font-mono-code font-semibold bg-catasyne-surface text-catasyne-indigo border border-catasyne-border">CS-001</span>
+              <span id="detail-industry-badge" class="px-3 py-1 rounded-full text-xs font-semibold bg-catasyne-lavender text-catasyne-violet">Primary Industry</span>
+              <span id="detail-category-badge" class="px-3 py-1 rounded-full text-xs font-medium bg-catasyne-surface text-slate-600 border border-catasyne-border">Primary Category</span>
+            </div>
+
+            <h1 id="detail-title" class="font-display text-2xl sm:text-4xl font-bold text-catasyne-indigo tracking-tight leading-tight">
+              Compound Name
+            </h1>
+            <p id="detail-iupac" class="text-xs sm:text-sm text-slate-500 mt-2 font-mono-code break-words">
+              IUPAC Name
+            </p>
+
+            <!-- Copyable CAS, Formula, Molecular Weight -->
+            <div class="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">
+              <button onclick="copyValue(document.getElementById('detail-cas').textContent, 'CAS Number')" class="text-left p-3.5 rounded-xl bg-catasyne-surface hover:bg-catasyne-lavender/70 border border-catasyne-border transition-colors">
+                <div class="text-[11px] font-medium text-slate-400">CAS Number (Click to copy)</div>
+                <div id="detail-cas" class="font-mono-code text-base font-bold text-catasyne-indigo mt-1">—</div>
+              </button>
+
+              <button onclick="copyValue(document.getElementById('detail-formula').textContent, 'Molecular Formula')" class="text-left p-3.5 rounded-xl bg-catasyne-surface hover:bg-catasyne-lavender/70 border border-catasyne-border transition-colors">
+                <div class="text-[11px] font-medium text-slate-400">Molecular Formula (Click to copy)</div>
+                <div id="detail-formula" class="font-mono-code text-base font-bold text-catasyne-indigo mt-1">—</div>
+              </button>
+
+              <div class="p-3.5 rounded-xl bg-catasyne-surface border border-catasyne-border">
+                <div class="text-[11px] font-medium text-slate-400">Molecular Weight</div>
+                <div id="detail-mw" class="font-mono-code text-base font-bold text-catasyne-indigo mt-1">—</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2D Chemical Structure / Molecular Formula & SMILES Viewer Canvas (Molecular Grid Preserved) -->
+          <div class="bg-white border border-catasyne-border rounded-2xl overflow-hidden">
+            <div class="px-5 py-3.5 bg-catasyne-surface border-b border-catasyne-border flex items-center justify-between">
+              <span class="font-display text-xs font-bold uppercase tracking-wider text-catasyne-indigo">2D Chemical Structure &amp; SMILES Viewer</span>
+              <span id="detail-viewer-id" class="text-[11px] font-mono-code text-slate-400">CS-001</span>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-12">
+              <div class="md:col-span-6 bg-molecular-grid p-6 flex flex-col items-center justify-center border-b md:border-b-0 md:border-r border-catasyne-border min-h-[230px]">
+                <div id="detail-structure-canvas" class="w-full max-w-[260px] h-40 flex items-center justify-center"></div>
+                <div id="detail-structure-formula-tag" class="mt-2 font-mono-code text-xs font-semibold text-catasyne-indigo"></div>
+              </div>
+
+              <div class="md:col-span-6 p-5 space-y-4 text-xs">
+                <div>
+                  <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                    <span>Canonical SMILES</span>
+                    <button onclick="copyValue(document.getElementById('detail-smiles').textContent, 'Canonical SMILES')" class="text-catasyne-violet hover:underline font-mono-code lowercase">copy</button>
+                  </div>
+                  <div id="detail-smiles" class="p-2.5 rounded-lg bg-catasyne-surface border border-catasyne-border font-mono-code text-[11px] text-catasyne-indigo break-all">—</div>
+                </div>
+
+                <div>
+                  <div class="flex items-center justify-between text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">
+                    <span>InChIKey</span>
+                    <button onclick="copyValue(document.getElementById('detail-inchikey').textContent, 'InChIKey')" class="text-catasyne-violet hover:underline font-mono-code lowercase">copy</button>
+                  </div>
+                  <div id="detail-inchikey" class="p-2.5 rounded-lg bg-catasyne-surface border border-catasyne-border font-mono-code text-[11px] text-catasyne-indigo break-all">—</div>
+                </div>
+
+                <div>
+                  <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Compound Summary</span>
+                  <p id="detail-description" class="text-slate-600 leading-relaxed">—</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- GHS Signal & Hazard Pictograms -->
+          <div class="bg-white border border-catasyne-border rounded-2xl p-5 space-y-4">
+            <div class="flex flex-wrap items-center justify-between gap-2">
+              <h2 class="font-display text-base font-bold text-catasyne-indigo">GHS Signal &amp; Hazard Classification</h2>
+              <span id="detail-ghs-signal-badge" class="px-3 py-1 rounded-md font-mono-code text-xs font-bold border">—</span>
+            </div>
+
+            <div id="detail-ghs-pictograms" class="flex flex-wrap items-center gap-2.5"></div>
+
+            <div id="detail-ghs-hazards" class="text-xs text-slate-600 bg-catasyne-surface border border-catasyne-border rounded-xl p-3.5 leading-relaxed">
+              —
+            </div>
+          </div>
+
+          <!-- Physical & Chemical Properties -->
+          <div>
+            <h2 class="font-display text-lg font-bold text-catasyne-indigo mb-3">Physical &amp; Chemical Properties</h2>
+            <div id="detail-properties-grid" class="border border-catasyne-border rounded-2xl overflow-hidden divide-y divide-catasyne-border text-xs sm:text-sm">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Right Sidebar: RFQ & Documentation Note -->
+        <aside class="lg:col-span-4 lg:sticky lg:top-[128px] space-y-5">
+          <div class="bg-white border border-catasyne-border rounded-2xl p-6 shadow-sm">
+            <span class="text-[11px] font-mono-code uppercase tracking-wider text-catasyne-violet font-semibold">Sourcing &amp; Sampling</span>
+            <h3 class="font-display text-lg font-bold text-catasyne-indigo mt-0.5">Request Quote or Sample</h3>
+            <p class="text-xs text-slate-600 mt-2 leading-relaxed">
+              COA, MSDS, and SDS available on request.
+            </p>
+
+            <div class="mt-4">
+              <label for="detail-pack-select" class="block text-xs font-semibold text-catasyne-indigo mb-1.5">Packaging / Scale</label>
+              <select id="detail-pack-select" class="w-full px-3 py-2 text-xs bg-catasyne-surface border border-catasyne-border rounded-lg text-catasyne-indigo font-medium focus:outline-none focus:border-catasyne-violet">
+                <option value="Lab Sample (5g – 100g)">Lab Sample (5g – 100g)</option>
+                <option value="R&D / Pilot (500g – 5kg)">R&amp;D / Pilot (500g – 5kg)</option>
+                <option value="Commercial Drum / Bulk (25kg+)">Commercial Drum / Bulk (25kg+)</option>
+              </select>
+            </div>
+
+            <div class="mt-3">
+              <label for="detail-qty-input" class="block text-xs font-semibold text-catasyne-indigo mb-1.5">Quantity / Notes</label>
+              <input id="detail-qty-input" type="text" value="1 unit" class="w-full px-3 py-2 text-xs font-mono-code bg-white border border-catasyne-border rounded-lg text-catasyne-indigo focus:outline-none focus:border-catasyne-violet" />
+            </div>
+
+            <div class="mt-5 space-y-2.5">
+              <button onclick="addActiveCompoundToRfq()" class="w-full py-3 px-4 bg-catasyne-violet hover:bg-catasyne-violetHover text-white font-semibold text-xs sm:text-sm rounded-xl transition-colors">
+                Add to Inquiry List
+              </button>
+              <button onclick="openRfqForActiveCompound()" class="w-full py-2.5 px-4 bg-catasyne-surface hover:bg-catasyne-lavender text-catasyne-indigo font-semibold text-xs border border-catasyne-border rounded-xl transition-colors">
+                Open Direct RFQ Modal
+              </button>
+            </div>
+          </div>
+
+          <div class="bg-catasyne-surface border border-catasyne-border rounded-2xl p-5 text-xs text-slate-600 space-y-2">
+            <div class="font-display font-bold text-catasyne-indigo">Regulatory &amp; Quality Documents</div>
+            <p id="detail-reg-note">COA, MSDS, and SDS available on request for all catalog compounds.</p>
+          </div>
+        </aside>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================================================================== -->
+  <!-- MODAL: DIRECT RFQ / CUSTOM SOURCING MODAL                            -->
+  <!-- ===================================================================== -->
+  <div id="custom-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-catasyne-indigo/50 backdrop-blur-xs">
+    <div class="bg-white border border-catasyne-border rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-catasyne-surface border-b border-catasyne-border flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-mono-code uppercase tracking-wider text-catasyne-violet font-semibold">CataSyne Sourcing Desk</span>
+          <h3 class="font-display text-lg font-bold text-catasyne-indigo">Request Quote or Sample (RFQ)</h3>
+        </div>
+        <button onclick="closeCustomSynthesisModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-catasyne-indigo">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <form id="rfq-modal-form" onsubmit="submitRfqModal(event)" class="p-6 space-y-4 text-xs">
+        <p class="text-slate-600 bg-catasyne-surface border border-catasyne-border rounded-lg px-3 py-2">
+          COA, MSDS, and SDS available on request.
+        </p>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-catasyne-indigo mb-1">Compound Name *</label>
+            <input id="modal-compound-name" type="text" required placeholder="e.g. 4-Chlorobenzotrifluoride" class="w-full px-3 py-2 border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"/>
+          </div>
+          <div>
+            <label class="block font-semibold text-catasyne-indigo mb-1">CAS Number / Catalog ID</label>
+            <input id="modal-compound-cas" type="text" placeholder="e.g. 98-56-6 / CS-001" class="w-full px-3 py-2 font-mono-code border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"/>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block font-semibold text-catasyne-indigo mb-1">Required Quantity *</label>
+            <input id="modal-compound-qty" type="text" required placeholder="e.g. 500g sample or 250kg" class="w-full px-3 py-2 border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"/>
+          </div>
+          <div>
+            <label class="block font-semibold text-catasyne-indigo mb-1">Work Email *</label>
+            <input id="modal-compound-email" type="email" required placeholder="procurement@company.com" class="w-full px-3 py-2 border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"/>
+          </div>
+        </div>
+
+        <div>
+          <label class="block font-semibold text-catasyne-indigo mb-1">Company &amp; Notes</label>
+          <textarea id="modal-compound-notes" rows="2" placeholder="Company name, target delivery location, or requested COA/MSDS/SDS..." class="w-full px-3 py-2 border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"></textarea>
+        </div>
+
+        <div class="pt-2 flex items-center justify-end gap-3">
+          <button type="button" onclick="closeCustomSynthesisModal()" class="px-4 py-2 font-semibold text-slate-500 hover:text-catasyne-indigo">Cancel</button>
+          <button type="submit" class="px-5 py-2.5 font-semibold text-white bg-catasyne-violet hover:bg-catasyne-violetHover rounded-lg transition-colors">
+            Submit RFQ
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- SLIDE-OVER DRAWER: INQUIRY LIST                                       -->
+  <!-- ===================================================================== -->
+  <div id="rfq-drawer-backdrop" onclick="toggleRfqDrawer(false)" class="fixed inset-0 z-50 hidden bg-catasyne-indigo/40 backdrop-blur-xs"></div>
+  <aside id="rfq-drawer" class="fixed top-0 right-0 z-50 h-full w-full max-w-md bg-white border-l border-catasyne-border shadow-2xl transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="px-6 py-4 bg-catasyne-surface border-b border-catasyne-border flex items-center justify-between">
+      <div>
+        <h3 class="font-display text-base font-bold text-catasyne-indigo">Inquiry List</h3>
+        <p class="text-xs text-slate-500">COA, MSDS, and SDS available on request.</p>
+      </div>
+      <button onclick="toggleRfqDrawer(false)" class="p-1.5 rounded-lg text-slate-400 hover:text-catasyne-indigo">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+
+    <div id="rfq-items-container" class="flex-1 overflow-y-auto p-6 space-y-3"></div>
+
+    <div id="rfq-checkout-footer" class="border-t border-catasyne-border bg-catasyne-surface p-6">
+      <form onsubmit="submitRfqDrawer(event)" class="space-y-3">
+        <div class="grid grid-cols-2 gap-2.5">
+          <input type="text" id="rfq-company" required placeholder="Company Name *" class="px-3 py-2 text-xs bg-white border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"/>
+          <input type="email" id="rfq-email" required placeholder="Work Email *" class="px-3 py-2 text-xs bg-white border border-catasyne-border rounded-lg focus:outline-none focus:border-catasyne-violet"/>
+        </div>
+        <button type="submit" class="w-full py-3 bg-catasyne-violet hover:bg-catasyne-violetHover text-white font-semibold text-xs sm:text-sm rounded-xl transition-colors">
+          Submit Inquiry List
+        </button>
+      </form>
+    </div>
+  </aside>
+
+  <!-- Toast Banner -->
+  <div id="toast-banner" class="fixed bottom-5 right-5 z-50 hidden items-center gap-3 px-4 py-3 bg-catasyne-indigo text-white text-xs sm:text-sm font-medium rounded-xl shadow-xl">
+    <span class="w-2 h-2 rounded-full bg-sky-400"></span>
+    <span id="toast-message">Updated</span>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- COMPLETE 244-COMPOUND DATASET (CS-001 THROUGH CS-244)                 -->
+  <!-- ===================================================================== -->
+  <script>
+    let CHEMICAL_DATABASE_244 = [];
+
+    // Application State (Filtering strictly on Primary Industry & Primary Category + optional search query)
+    const appState = {
+      primaryIndustry: "All",
+      primaryCategory: "All",
+      searchQuery: "",
+      viewMode: "grid",
+      activeCompoundId: null,
+      rfqCart: []
+    };
+
+    function updateDynamicCounts(total) {
+      const heroBadge = document.getElementById("hero-db-badge");
+      if (heroBadge) {
+        const lastId = total > 0 ? "CS-" + String(total).padStart(3, "0") : "CS-000";
+        heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-catasyne-violet"></span> Verified ${total}-Compound Database • CS-001 to ${lastId}`;
+      }
+      const catSubtitle = document.getElementById("catalog-db-subtitle");
+      if (catSubtitle) {
+        const lastId = total > 0 ? "CS-" + String(total).padStart(3, "0") : "CS-000";
+        catSubtitle.textContent = `Complete Database • CS-001 – ${lastId}`;
+      }
+      const totalSpan = document.getElementById("total-compounds-count");
+      if (totalSpan) totalSpan.textContent = total;
+      const navSearchLabel = document.getElementById("nav-search-label");
+      if (navSearchLabel) navSearchLabel.textContent = `Search ${total} CAS...`;
+      const browseBtn = document.getElementById("hero-browse-btn");
+      if (browseBtn) browseBtn.textContent = `Browse ${total} Compounds`;
+      const infraCount = document.getElementById("infra-compound-count");
+      if (infraCount) infraCount.textContent = `${total} Verified Compounds`;
+      const detailReg = document.getElementById("detail-reg-note");
+      if (detailReg) {
+        const lastId = total > 0 ? "CS-" + String(total).padStart(3, "0") : "CS-000";
+        detailReg.textContent = `COA, MSDS, and SDS available on request for all ${total} catalog compounds (CS-001 through ${lastId}).`;
+      }
+    }
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const gridEl = document.getElementById("catalog-grid-container");
+      if (gridEl) {
+        gridEl.innerHTML = `<div class="col-span-full text-center py-14 px-4 bg-catasyne-surface border border-catasyne-border rounded-2xl text-sm text-slate-600">Loading live CataSyne database from Google Sheets...</div>`;
+      }
+
+      if (typeof google !== "undefined" && google.script && google.script.run) {
+        google.script.run
+          .withSuccessHandler((data) => {
+            CHEMICAL_DATABASE_244 = Array.isArray(data) ? data : [];
+            appState.rfqCart = CHEMICAL_DATABASE_244.length > 0
+              ? [{ id: CHEMICAL_DATABASE_244[0].id, pack: "Lab Sample (5g – 100g)", qty: "1 unit" }]
+              : [];
+            updateDynamicCounts(CHEMICAL_DATABASE_244.length);
+            initIndustryAndCategoryFilters();
+            renderCatalog();
+            updateRfqBadge();
+            renderRfqDrawer();
+            handleHashRoute();
+          })
+          .withFailureHandler((err) => {
+            if (gridEl) {
+              gridEl.innerHTML = `<div class="col-span-full text-center py-14 px-4 bg-red-50 border border-red-200 rounded-2xl text-sm text-red-700">Unable to load compounds from Google Sheets: ${escapeHtml(err && err.message ? err.message : String(err))}</div>`;
+            }
+          })
+          .getCatalogData();
+      } else {
+        if (gridEl) {
+          gridEl.innerHTML = `<div class="col-span-full text-center py-14 px-4 bg-amber-50 border border-amber-200 rounded-2xl text-sm text-amber-800">Open this page via your deployed Google Apps Script Web App URL to load live Google Sheets data.</div>`;
+        }
+      }
+
+      window.addEventListener("hashchange", handleHashRoute);
+
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "/" && document.activeElement.tagName !== "INPUT" && document.activeElement.tagName !== "TEXTAREA") {
+          e.preventDefault();
+          if (!document.getElementById("product-details-view").classList.contains("hidden")) {
+            navigateToHome();
+          }
+          focusCatalogSearch();
+        }
+        if (e.key === "Escape") {
+          closeCustomSynthesisModal();
+          toggleRfqDrawer(false);
+        }
+      });
+    });
+
+    // Populate Primary Industry tabs, Hero quick pills, and Primary Category dropdown
+    function initIndustryAndCategoryFilters() {
+      const industries = Array.from(new Set(CHEMICAL_DATABASE_244.map(c => c.primaryIndustry)));
+
+      // Quick pills on Hero
+      const pillsEl = document.getElementById("quick-industry-pills");
+      pillsEl.innerHTML = `<span class="text-slate-400 font-medium">Primary Industries:</span>` + industries.map(ind => `
+        <button onclick="selectPrimaryIndustry('${escapeAttr(ind)}', true)" class="px-2.5 py-1 rounded-md bg-catasyne-surface hover:bg-catasyne-lavender text-catasyne-indigo hover:text-catasyne-violet border border-catasyne-border transition-colors">
+          ${escapeHtml(ind)}
+        </button>
+      `).join("");
+
+      renderPrimaryIndustryTabs(industries);
+      populatePrimaryCategorySelect();
+    }
+
+    function renderPrimaryIndustryTabs(industries) {
+      const tabsContainer = document.getElementById("primary-industry-tabs");
+      const allCount = CHEMICAL_DATABASE_244.length;
+
+      const makeBtn = (label, value, count) => {
+        const active = appState.primaryIndustry === value;
+        return `
+          <button onclick="selectPrimaryIndustry('${escapeAttr(value)}', false)" class="shrink-0 px-3.5 py-2 rounded-lg text-xs sm:text-sm transition-all ${
+            active
+              ? "font-semibold bg-catasyne-indigo text-white"
+              : "font-medium bg-catasyne-surface hover:bg-catasyne-lavender text-slate-600 border border-catasyne-border"
+          }">
+            ${escapeHtml(label)} <span class="ml-1 font-mono-code text-xs opacity-75">(${count})</span>
+          </button>
+        `;
+      };
+
+      const indButtons = industries.map(ind => {
+        const cnt = CHEMICAL_DATABASE_244.filter(c => c.primaryIndustry === ind).length;
+        return makeBtn(ind, ind, cnt);
+      }).join("");
+
+      tabsContainer.innerHTML = makeBtn("All Primary Industries", "All", allCount) + indButtons;
+    }
+
+    function populatePrimaryCategorySelect() {
+      const selectEl = document.getElementById("select-primary-category");
+      const pool = appState.primaryIndustry === "All"
+        ? CHEMICAL_DATABASE_244
+        : CHEMICAL_DATABASE_244.filter(c => c.primaryIndustry === appState.primaryIndustry);
+
+      const categories = Array.from(new Set(pool.map(c => c.primaryCategory))).sort();
+
+      // If current selected category is not in available categories for this industry, reset to All
+      if (appState.primaryCategory !== "All" && !categories.includes(appState.primaryCategory)) {
+        appState.primaryCategory = "All";
+      }
+
+      selectEl.innerHTML = `<option value="All">Primary Category: All (${categories.length})</option>` +
+        categories.map(cat => {
+          const count = pool.filter(c => c.primaryCategory === cat).length;
+          const selected = appState.primaryCategory === cat ? "selected" : "";
+          return `<option value="${escapeAttr(cat)}" ${selected}>${escapeHtml(cat)} (${count})</option>`;
+        }).join("");
+    }
+
+    function selectPrimaryIndustry(industry, shouldScroll = false) {
+      appState.primaryIndustry = industry;
+      const industries = Array.from(new Set(CHEMICAL_DATABASE_244.map(c => c.primaryIndustry)));
+      renderPrimaryIndustryTabs(industries);
+      populatePrimaryCategorySelect();
+      renderCatalog();
+      if (shouldScroll) {
+        scrollToCatalog();
+      }
+    }
+
+    function handlePrimaryCategoryChange(category) {
+      appState.primaryCategory = category;
+      renderCatalog();
+    }
+
+    function handleSearchInput(val) {
+      appState.searchQuery = val.trim();
+      renderCatalog();
+    }
+
+    function resetFilters() {
+      appState.primaryIndustry = "All";
+      appState.primaryCategory = "All";
+      appState.searchQuery = "";
+      document.getElementById("catalog-search-input").value = "";
+      const industries = Array.from(new Set(CHEMICAL_DATABASE_244.map(c => c.primaryIndustry)));
+      renderPrimaryIndustryTabs(industries);
+      populatePrimaryCategorySelect();
+      renderCatalog();
+    }
+
+    // Filter strictly by Primary Industry & Primary Category + optional text search query
+    function getFilteredCompounds() {
+      const q = appState.searchQuery.toLowerCase();
+      return CHEMICAL_DATABASE_244.filter(item => {
+        const matchIndustry = appState.primaryIndustry === "All" || item.primaryIndustry === appState.primaryIndustry;
+        const matchCategory = appState.primaryCategory === "All" || item.primaryCategory === appState.primaryCategory;
+        const matchSearch = !q ||
+          item.name.toLowerCase().includes(q) ||
+          item.cas.toLowerCase().includes(q) ||
+          item.formula.toLowerCase().includes(q) ||
+          item.id.toLowerCase().includes(q);
+        return matchIndustry && matchCategory && matchSearch;
+      });
+    }
+
+    function setViewMode(mode) {
+      appState.viewMode = mode;
+      const btnGrid = document.getElementById("btn-view-grid");
+      const btnTable = document.getElementById("btn-view-table");
+      if (mode === "grid") {
+        btnGrid.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-catasyne-indigo shadow-sm transition-all";
+        btnTable.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-slate-500 hover:text-catasyne-indigo transition-all";
+      } else {
+        btnTable.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-semibold bg-white text-catasyne-indigo shadow-sm transition-all";
+        btnGrid.className = "flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium text-slate-500 hover:text-catasyne-indigo transition-all";
+      }
+      renderCatalog();
+    }
+
+    function renderCatalog() {
+      const list = getFilteredCompounds();
+      const gridEl = document.getElementById("catalog-grid-container");
+      const tableWrapEl = document.getElementById("catalog-table-container");
+      const tableBodyEl = document.getElementById("catalog-table-body");
+      const emptyEl = document.getElementById("catalog-empty-state");
+      const countEl = document.getElementById("results-count");
+      const resetBtn = document.getElementById("btn-reset-filters");
+
+      countEl.textContent = list.length;
+      const isFiltered = appState.primaryIndustry !== "All" || appState.primaryCategory !== "All" || appState.searchQuery !== "";
+      resetBtn.classList.toggle("hidden", !isFiltered);
+
+      if (list.length === 0) {
+        gridEl.classList.add("hidden");
+        tableWrapEl.classList.add("hidden");
+        emptyEl.classList.remove("hidden");
+        return;
+      }
+
+      emptyEl.classList.add("hidden");
+
+      if (appState.viewMode === "grid") {
+        gridEl.classList.remove("hidden");
+        tableWrapEl.classList.add("hidden");
+        gridEl.innerHTML = list.map(item => {
+          const signalClasses = item.ghsSignal === "Danger"
+            ? "bg-red-50 text-red-700 border-red-200"
+            : "bg-amber-50 text-amber-800 border-amber-200";
+          return `
+            <article onclick="openProductDetails('${item.id}')" class="cursor-pointer group bg-white border border-catasyne-border hover:border-catasyne-violet/60 rounded-2xl p-5 flex flex-col justify-between transition-all hover:shadow-md">
+              <div>
+                <div class="flex items-center justify-between gap-2 mb-2.5">
+                  <span class="font-mono-code text-xs font-semibold text-catasyne-indigo bg-catasyne-surface px-2.5 py-1 rounded-md border border-catasyne-border">
+                    ${item.id} • CAS ${escapeHtml(item.cas)}
+                  </span>
+                  <span class="font-mono-code text-[11px] font-semibold px-2 py-0.5 rounded border ${signalClasses}">
+                    ${escapeHtml(item.ghsSignal || "—")}
+                  </span>
+                </div>
+
+                <h3 class="font-display text-base font-bold text-catasyne-indigo group-hover:text-catasyne-violet transition-colors leading-snug">
+                  ${escapeHtml(item.name)}
+                </h3>
+
+                <div class="mt-2 space-y-1 text-xs">
+                  <div class="text-catasyne-violet font-medium">${escapeHtml(item.primaryIndustry)}</div>
+                  <div class="text-slate-500">${escapeHtml(item.primaryCategory)}</div>
+                </div>
+
+                <div class="mt-4 pt-3 border-t border-catasyne-border grid grid-cols-2 gap-2 text-xs">
+                  <div>
+                    <span class="block text-[10px] font-mono-code uppercase text-slate-400">Formula</span>
+                    <span class="font-mono-code font-medium text-catasyne-indigo">${escapeHtml(item.formula)}</span>
+                  </div>
+                  <div>
+                    <span class="block text-[10px] font-mono-code uppercase text-slate-400">Mol. Weight</span>
+                    <span class="font-mono-code font-medium text-catasyne-indigo">${Number(item.mw).toFixed(2)} g/mol</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="mt-4 pt-3 border-t border-catasyne-border flex items-center justify-between gap-2">
+                <button type="button" onclick="event.stopPropagation(); openProductDetails('${item.id}')" class="w-full py-2 px-3 text-xs font-semibold text-catasyne-indigo bg-catasyne-surface group-hover:bg-catasyne-violet group-hover:text-white border border-catasyne-border rounded-lg transition-colors">
+                  View Details →
+                </button>
+              </div>
+            </article>
+          `;
+        }).join("");
+      } else {
+        gridEl.classList.add("hidden");
+        tableWrapEl.classList.remove("hidden");
+        tableBodyEl.innerHTML = list.map(item => `
+          <tr onclick="openProductDetails('${item.id}')" class="cursor-pointer hover:bg-catasyne-surface transition-colors">
+            <td class="py-3 px-4 font-mono-code text-xs whitespace-nowrap">
+              <div class="font-semibold text-catasyne-indigo">${item.id}</div>
+              <div class="text-slate-500">${escapeHtml(item.cas)}</div>
+            </td>
+            <td class="py-3 px-4 font-display font-bold text-catasyne-indigo">
+              ${escapeHtml(item.name)}
+            </td>
+            <td class="py-3 px-4 text-xs font-medium text-catasyne-violet">
+              ${escapeHtml(item.primaryIndustry)}
+            </td>
+            <td class="py-3 px-4 text-xs text-slate-600">
+              ${escapeHtml(item.primaryCategory)}
+            </td>
+            <td class="py-3 px-4 font-mono-code text-xs whitespace-nowrap">
+              <div class="text-catasyne-indigo">${escapeHtml(item.formula)}</div>
+              <div class="text-slate-400">${Number(item.mw).toFixed(2)}</div>
+            </td>
+            <td class="py-3 px-4 font-mono-code text-xs whitespace-nowrap">
+              ${escapeHtml(item.ghsSignal || "—")}
+            </td>
+            <td class="py-3 px-4 text-right whitespace-nowrap">
+              <button type="button" onclick="event.stopPropagation(); openProductDetails('${item.id}')" class="px-3 py-1.5 text-xs font-semibold text-catasyne-indigo bg-catasyne-surface hover:bg-catasyne-violet hover:text-white border border-catasyne-border rounded-lg transition-colors">
+                Details →
+              </button>
+            </td>
+          </tr>
+        `).join("");
+      }
+    }
+
+    // Hash routing (#/product/CS-001)
+    function handleHashRoute() {
+      const hash = window.location.hash;
+      if (hash && hash.startsWith("#/product/")) {
+        const id = hash.replace("#/product/", "").trim();
+        if (CHEMICAL_DATABASE_244.some(c => c.id === id)) {
+          showProductDetails(id, false);
+          return;
+        }
+      }
+      showHomeView(false);
+    }
+
+    function openProductDetails(id) {
+      showProductDetails(id, true);
+    }
+
+    function showProductDetails(id, updateHash = true) {
+      const item = CHEMICAL_DATABASE_244.find(c => c.id === id);
+      if (!item) return;
+
+      appState.activeCompoundId = id;
+      if (updateHash) {
+        window.location.hash = `#/product/${id}`;
+      }
+
+      document.getElementById("catalog-home-view").classList.add("hidden");
+      document.getElementById("product-details-view").classList.remove("hidden");
+
+      document.getElementById("detail-breadcrumb-industry").textContent = item.primaryIndustry;
+      document.getElementById("detail-breadcrumb-name").textContent = item.name;
+      document.getElementById("detail-id-badge").textContent = item.id;
+      document.getElementById("detail-industry-badge").textContent = item.primaryIndustry;
+      document.getElementById("detail-category-badge").textContent = item.primaryCategory;
+      document.getElementById("detail-title").textContent = item.name;
+      document.getElementById("detail-iupac").textContent = `IUPAC: ${item.iupac}`;
+
+      document.getElementById("detail-cas").textContent = item.cas;
+      document.getElementById("detail-formula").textContent = item.formula;
+      document.getElementById("detail-mw").textContent = `${Number(item.mw).toFixed(2)} g/mol`;
+
+      document.getElementById("detail-viewer-id").textContent = `${item.id} • CAS ${item.cas}`;
+      document.getElementById("detail-structure-canvas").innerHTML = renderStructureSvg(item);
+      document.getElementById("detail-structure-formula-tag").textContent = `${item.formula} (MW ${Number(item.mw).toFixed(2)})`;
+      document.getElementById("detail-smiles").textContent = item.smiles;
+      document.getElementById("detail-inchikey").textContent = item.inchikey;
+      document.getElementById("detail-description").textContent = item.description;
+
+      // GHS Signal & Pictograms
+      const signalBadge = document.getElementById("detail-ghs-signal-badge");
+      signalBadge.textContent = `GHS Signal: ${item.ghsSignal || "Not Classified"}`;
+      signalBadge.className = item.ghsSignal === "Danger"
+        ? "px-3 py-1 rounded-md font-mono-code text-xs font-bold border bg-red-50 text-red-700 border-red-200"
+        : "px-3 py-1 rounded-md font-mono-code text-xs font-bold border bg-amber-50 text-amber-800 border-amber-200";
+
+      const pics = Array.isArray(item.ghsPictograms) && item.ghsPictograms.length > 0 ? item.ghsPictograms : ["GHS Reference"];
+      document.getElementById("detail-ghs-pictograms").innerHTML = pics.map(pic => `
+        <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-lg bg-catasyne-surface border border-catasyne-border text-xs font-mono-code font-semibold text-catasyne-indigo">
+          <span class="w-4 h-4 rotate-45 border border-red-600 bg-red-50 inline-flex items-center justify-center">
+            <span class="-rotate-45 text-[9px] font-bold text-red-700">!</span>
+          </span>
+          <span>${escapeHtml(pic)}</span>
+        </div>
+      `).join("");
+
+      document.getElementById("detail-ghs-hazards").textContent = item.ghsHazards;
+
+      // Physical & Chemical Properties Table
+      const propRows = [
+        ["Form / Appearance", item.form],
+        ["Melting Point", item.meltingPoint],
+        ["Boiling Point", item.boilingPoint],
+        ["Density", item.density],
+        ["Solubility", item.solubility],
+        ["Shelf Life", item.shelfLife],
+        ["Regulatory Documents", "COA, MSDS, and SDS available on request."]
+      ];
+
+      document.getElementById("detail-properties-grid").innerHTML = propRows.map(([label, val]) => `
+        <div class="grid grid-cols-1 sm:grid-cols-3">
+          <div class="px-4 py-3 bg-catasyne-surface font-medium text-slate-500">${escapeHtml(label)}</div>
+          <div class="sm:col-span-2 px-4 py-3 text-catasyne-indigo font-mono-code text-xs sm:text-sm">${escapeHtml(String(val || "—"))}</div>
+        </div>
+      `).join("");
+
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    // Generates a clean 2D cheminformatics scaffold card with compound formula and CAS readout
+    function renderStructureSvg(item) {
+      return `
+        <svg viewBox="0 0 220 130" class="w-full h-full">
+          <polygon points="75,26 105,43 105,77 75,94 45,77 45,43" fill="#FFFFFF" fill-opacity="0.9" stroke="#15094D" stroke-width="2"/>
+          <circle cx="75" cy="60" r="14" fill="none" stroke="#6A23F5" stroke-width="1.5" stroke-dasharray="3,2"/>
+          <line x1="105" y1="43" x2="135" y2="26" stroke="#15094D" stroke-width="2"/>
+          <line x1="135" y1="26" x2="165" y2="43" stroke="#6A23F5" stroke-width="2"/>
+          <line x1="165" y1="43" x2="165" y2="77" stroke="#15094D" stroke-width="2"/>
+          <line x1="165" y1="77" x2="135" y2="94" stroke="#15094D" stroke-width="2"/>
+          <line x1="135" y1="94" x2="105" y2="77" stroke="#6A23F5" stroke-width="2"/>
+          <text x="110" y="118" text-anchor="middle" font-family="JetBrains Mono" font-size="9.5" fill="#15094D">${escapeSvg(item.id)} • CAS ${escapeSvg(item.cas)}</text>
+        </svg>
+      `;
+    }
+
+    function navigateToHome(event) {
+      if (event) event.preventDefault();
+      showHomeView(true);
+    }
+
+    function showHomeView(updateHash = true) {
+      appState.activeCompoundId = null;
+      if (updateHash && window.location.hash.startsWith("#/product/")) {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+      document.getElementById("product-details-view").classList.add("hidden");
+      document.getElementById("catalog-home-view").classList.remove("hidden");
+      renderCatalog();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function navigateToSection(event, sectionId) {
+      if (event) event.preventDefault();
+      if (!document.getElementById("product-details-view").classList.contains("hidden")) {
+        showHomeView(true);
+        setTimeout(() => {
+          const el = document.getElementById(sectionId);
+          if (el) el.scrollIntoView({ behavior: "smooth" });
+        }, 60);
+      } else {
+        const el = document.getElementById(sectionId);
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+
+    function scrollToCatalog() {
+      const el = document.getElementById("catalog");
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+
+    function focusCatalogSearch() {
+      const input = document.getElementById("catalog-search-input");
+      if (input) {
+        input.scrollIntoView({ behavior: "smooth", block: "center" });
+        setTimeout(() => input.focus(), 200);
+      }
+    }
+
+    // RFQ & Inquiry List actions
+    function addActiveCompoundToRfq() {
+      const item = CHEMICAL_DATABASE_244.find(c => c.id === appState.activeCompoundId);
+      if (!item) return;
+      const pack = document.getElementById("detail-pack-select").value;
+      const qty = document.getElementById("detail-qty-input").value.trim() || "1 unit";
+
+      const existing = appState.rfqCart.find(entry => entry.id === item.id);
+      if (existing) {
+        existing.pack = pack;
+        existing.qty = qty;
+      } else {
+        appState.rfqCart.push({ id: item.id, pack, qty });
+      }
+      updateRfqBadge();
+      renderRfqDrawer();
+      showToast(`Added ${item.name} (${item.cas}) to Inquiry List`);
+      toggleRfqDrawer(true);
+    }
+
+    function openRfqForActiveCompound() {
+      const item = CHEMICAL_DATABASE_244.find(c => c.id === appState.activeCompoundId);
+      if (item) {
+        document.getElementById("modal-compound-name").value = item.name;
+        document.getElementById("modal-compound-cas").value = `${item.cas} (${item.id})`;
+        document.getElementById("modal-compound-qty").value = document.getElementById("detail-qty-input").value || "100g sample";
+      }
+      openCustomSynthesisModal();
+    }
+
+    function openCustomSynthesisModal() {
+      const modal = document.getElementById("custom-modal");
+      modal.classList.remove("hidden");
+      modal.classList.add("flex");
+    }
+
+    function closeCustomSynthesisModal() {
+      const modal = document.getElementById("custom-modal");
+      modal.classList.add("hidden");
+      modal.classList.remove("flex");
+    }
+
+    function submitRfqModal(e) {
+      e.preventDefault();
+      const name = document.getElementById("modal-compound-name").value;
+      const cas = document.getElementById("modal-compound-cas").value;
+      const qty = document.getElementById("modal-compound-qty").value;
+      const email = document.getElementById("modal-compound-email").value;
+      const notes = document.getElementById("modal-compound-notes").value;
+
+      if (typeof google !== "undefined" && google.script && google.script.run) {
+        google.script.run.submitRfqToSheet({
+          type: "Direct RFQ",
+          company: "",
+          email: email,
+          items: `${name} (${cas})`,
+          qty: qty,
+          notes: notes
+        });
+      }
+
+      document.getElementById("rfq-modal-form").reset();
+      closeCustomSynthesisModal();
+      showToast(`RFQ submitted for ${name}. COA, MSDS, and SDS available on request.`);
+    }
+
+    function toggleRfqDrawer(open) {
+      const drawer = document.getElementById("rfq-drawer");
+      const backdrop = document.getElementById("rfq-drawer-backdrop");
+      if (open) {
+        backdrop.classList.remove("hidden");
+        drawer.classList.remove("translate-x-full");
+      } else {
+        backdrop.classList.add("hidden");
+        drawer.classList.add("translate-x-full");
+      }
+    }
+
+    function updateRfqBadge() {
+      document.getElementById("nav-rfq-count").textContent = appState.rfqCart.length;
+    }
+
+    function removeRfqItem(id) {
+      appState.rfqCart = appState.rfqCart.filter(item => item.id !== id);
+      updateRfqBadge();
+      renderRfqDrawer();
+    }
+
+    function renderRfqDrawer() {
+      const container = document.getElementById("rfq-items-container");
+      const footer = document.getElementById("rfq-checkout-footer");
+
+      if (appState.rfqCart.length === 0) {
+        footer.classList.add("hidden");
+        container.innerHTML = `<p class="text-xs text-slate-500 text-center py-10">No compounds in your inquiry list yet.</p>`;
+        return;
+      }
+
+      footer.classList.remove("hidden");
+      container.innerHTML = appState.rfqCart.map(entry => {
+        const chem = CHEMICAL_DATABASE_244.find(c => c.id === entry.id);
+        if (!chem) return "";
+        return `
+          <div class="p-3.5 rounded-xl bg-catasyne-surface border border-catasyne-border text-xs space-y-1.5">
+            <div class="flex items-start justify-between gap-2">
+              <div>
+                <div class="font-mono-code text-[11px] text-catasyne-violet font-semibold">${chem.id} • CAS ${escapeHtml(chem.cas)}</div>
+                <div class="font-display font-bold text-catasyne-indigo">${escapeHtml(chem.name)}</div>
+              </div>
+              <button onclick="removeRfqItem('${chem.id}')" class="text-slate-400 hover:text-red-600 text-xs px-1">✕</button>
+            </div>
+            <div class="text-[11px] text-slate-600 font-mono-code">${escapeHtml(entry.pack)} — ${escapeHtml(entry.qty)}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function submitRfqDrawer(e) {
+      e.preventDefault();
+      const company = document.getElementById("rfq-company").value;
+      const email = document.getElementById("rfq-email").value;
+      const summary = appState.rfqCart.map(entry => {
+        const chem = CHEMICAL_DATABASE_244.find(c => c.id === entry.id);
+        return chem ? `${chem.id} - ${chem.name} (${chem.cas}) [${entry.pack} • ${entry.qty}]` : `${entry.id} [${entry.pack} • ${entry.qty}]`;
+      }).join("; ");
+
+      if (typeof google !== "undefined" && google.script && google.script.run) {
+        google.script.run.submitRfqToSheet({
+          type: "Inquiry List",
+          company: company,
+          email: email,
+          items: summary,
+          qty: `${appState.rfqCart.length} item(s)`,
+          notes: ""
+        });
+      }
+
+      appState.rfqCart = [];
+      updateRfqBadge();
+      renderRfqDrawer();
+      toggleRfqDrawer(false);
+      showToast(`Inquiry submitted for ${company}. COA, MSDS, and SDS available on request.`);
+    }
+
+    function copyValue(text, label) {
+      if (!text) return;
+      const input = document.createElement("input");
+      input.value = text;
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand("copy");
+      document.body.removeChild(input);
+      showToast(`Copied ${label}`);
+    }
+
+    let toastTimer;
+    function showToast(msg) {
+      const el = document.getElementById("toast-banner");
+      document.getElementById("toast-message").textContent = msg;
+      el.classList.remove("hidden");
+      el.classList.add("flex");
+      clearTimeout(toastTimer);
+      toastTimer = setTimeout(() => {
+        el.classList.add("hidden");
+        el.classList.remove("flex");
+      }, 3400);
+    }
+
+    function escapeHtml(str) {
+      return String(str || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;");
+    }
+
+    function escapeAttr(str) {
+      return String(str || "").replace(/'/g, "\\'");
+    }
+
+    function escapeSvg(str) {
+      return String(str || "").replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+    }
+  </script>
+</body>
+</html>
