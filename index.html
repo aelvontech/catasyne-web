@@ -111,10 +111,25 @@
       </a>
 
       <!-- Center: Primary Navigation Links -->
-      <nav class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-600">
-        <a href="#home-hero" onclick="navigateToHome(event)" class="hover:text-catasyne-violet transition-colors">Home</a>
+      <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-600">
         <a href="#catalog" onclick="navigateToSection(event, 'catalog')" class="hover:text-catasyne-violet transition-colors">Products</a>
+
+        <!-- Industry Dropdown -->
+        <div class="relative" id="header-industry-dropdown-wrap">
+          <button type="button" onclick="toggleHeaderIndustryMenu(event)" class="inline-flex items-center gap-1.5 hover:text-catasyne-violet transition-colors focus:outline-none">
+            <span>Industry</span>
+            <svg class="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7"/></svg>
+          </button>
+          <div id="header-industry-menu" class="hidden absolute left-0 mt-2.5 w-64 max-h-80 overflow-y-auto bg-white border border-catasyne-border rounded-xl shadow-lg py-1.5 z-50">
+            <button type="button" onclick="selectIndustryFromHeader('All')" class="w-full text-left px-4 py-2 text-xs font-semibold text-catasyne-indigo hover:bg-catasyne-lavender hover:text-catasyne-violet transition-colors">
+              All Industries
+            </button>
+            <div id="header-industry-list" class="divide-y divide-catasyne-border/40"></div>
+          </div>
+        </div>
+
         <a href="#capabilities" onclick="navigateToSection(event, 'capabilities')" class="hover:text-catasyne-violet transition-colors">Sourcing &amp; RFQ</a>
+        <button type="button" onclick="openContactModal()" class="hover:text-catasyne-violet transition-colors">Contact Us</button>
       </nav>
 
       <!-- Right: Quick Search Trigger, Inquiry List Drawer & RFQ CTA -->
@@ -151,7 +166,7 @@
         <div class="max-w-3xl mx-auto text-center">
           <div id="hero-db-badge" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-catasyne-lavender border border-catasyne-violet/20 text-catasyne-violet text-xs font-mono-code font-semibold tracking-wider uppercase mb-6">
             <span class="w-2 h-2 rounded-full bg-catasyne-violet"></span>
-            Verified Compound Database • Live Google Sheets Sync
+            Verified Compound Database • Live Catalog
           </div>
 
           <h1 class="font-display text-3xl sm:text-5xl font-bold tracking-tight text-catasyne-indigo leading-[1.12] mb-5">
@@ -180,7 +195,7 @@
     </section>
 
     <!-- =================================================================== -->
-    <!-- 244-COMPOUND SPECIALTY CHEMICALS CATALOG (FILTERED BY PRIMARY       -->
+    <!-- SPECIALTY SPECIALTY CHEMICALS CATALOG (FILTERED BY PRIMARY       -->
     <!-- INDUSTRY & PRIMARY CATEGORY ONLY + OPTIONAL TEXT SEARCH)            -->
     <!-- =================================================================== -->
     <section id="catalog" class="py-14 sm:py-20 bg-white">
@@ -189,7 +204,7 @@
         <!-- Section Header + View Toggle -->
         <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6">
           <div>
-            <span id="catalog-db-subtitle" class="text-xs font-mono-code font-semibold uppercase tracking-widest text-catasyne-violet">Complete Database • Live Sync</span>
+            <span id="catalog-db-subtitle" class="text-xs font-mono-code font-semibold uppercase tracking-widest text-catasyne-violet">Complete Specialty Catalog</span>
             <h2 class="font-display text-2xl sm:text-3xl font-bold text-catasyne-indigo mt-1">Specialty Chemicals Catalog</h2>
             <p class="text-sm text-slate-500 mt-1">Filter dynamically by Primary Industry and Primary Category, or search by name, CAS number, or molecular formula.</p>
           </div>
@@ -241,7 +256,7 @@
           </div>
 
           <div class="flex items-center justify-between md:justify-end gap-3 text-xs text-slate-500">
-            <span>Showing <strong id="results-count" class="text-catasyne-indigo font-mono-code">0</strong> of <span id="total-compounds-count" class="font-mono-code">0</span> compounds</span>
+            <span id="filter-status-label" class="text-slate-500">All Industries &amp; Categories</span>
             <button id="btn-reset-filters" onclick="resetFilters()" class="hidden text-catasyne-violet hover:underline font-semibold">
               Reset filters
             </button>
@@ -342,7 +357,7 @@
     <div class="bg-catasyne-surface border-b border-catasyne-border sticky top-[65px] z-30">
       <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-2 sm:gap-3 text-xs min-w-0">
-          <button onclick="navigateToHome()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-catasyne-lavender text-catasyne-indigo hover:text-catasyne-violet font-semibold border border-catasyne-border transition-colors shrink-0">
+          <button onclick="navigateBackToProducts()" class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white hover:bg-catasyne-lavender text-catasyne-indigo hover:text-catasyne-violet font-semibold border border-catasyne-border transition-colors shrink-0">
             <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M10 19l-7-7m0 0l7-7m-7 7h18"/></svg>
             Back to Catalog
           </button>
@@ -505,6 +520,54 @@
   </section>
 
   <!-- ===================================================================== -->
+  <!-- MODAL: CONTACT US                                                     -->
+  <!-- ===================================================================== -->
+  <div id="contact-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-catasyne-indigo/50 backdrop-blur-xs">
+    <div class="bg-white border border-catasyne-border rounded-2xl max-w-lg w-full shadow-2xl overflow-hidden">
+      <div class="px-6 py-4 bg-catasyne-surface border-b border-catasyne-border flex items-center justify-between">
+        <div>
+          <span class="text-[11px] font-mono-code uppercase tracking-wider text-catasyne-violet font-semibold">Get in Touch</span>
+          <h3 class="font-display text-lg font-bold text-catasyne-indigo">Contact Us</h3>
+        </div>
+        <button type="button" onclick="closeContactModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-catasyne-indigo">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-6 space-y-4 text-xs sm:text-sm">
+        <div class="p-4 rounded-xl bg-catasyne-surface border border-catasyne-border space-y-3">
+          <div>
+            <div class="text-[11px] font-mono-code uppercase tracking-wider text-slate-400 font-semibold">Company</div>
+            <div class="font-display font-bold text-catasyne-indigo mt-0.5">Aelvon Technologies Private Limited</div>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-mono-code uppercase tracking-wider text-slate-400 font-semibold">Email</div>
+            <div class="mt-0.5 flex items-center gap-2">
+              <a href="mailto:contact@catasyne.com" class="font-mono-code font-semibold text-catasyne-violet hover:underline">contact@catasyne.com</a>
+              <button type="button" onclick="copyValue('contact@catasyne.com', 'Email')" class="text-[11px] font-mono-code text-slate-400 hover:text-catasyne-indigo">(copy)</button>
+            </div>
+          </div>
+
+          <div>
+            <div class="text-[11px] font-mono-code uppercase tracking-wider text-slate-400 font-semibold">Address</div>
+            <p class="text-slate-700 leading-relaxed mt-0.5">
+              5th Floor, Technopolis Knowledge Park, Mahakali Caves Road, MIDC, Andheri East, Mumbai, Maharashtra, India - 400093
+            </p>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-1">
+          <button type="button" onclick="closeContactModal()" class="px-4 py-2 text-xs font-semibold text-slate-600 hover:text-catasyne-indigo">Close</button>
+          <button type="button" onclick="closeContactModal(); openCustomSynthesisModal();" class="px-4 py-2 text-xs font-semibold text-white bg-catasyne-violet hover:bg-catasyne-violetHover rounded-lg transition-colors">
+            Send Sourcing Inquiry
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
   <!-- MODAL: DIRECT RFQ / CUSTOM SOURCING MODAL                            -->
   <!-- ===================================================================== -->
   <div id="custom-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-catasyne-indigo/50 backdrop-blur-xs">
@@ -598,7 +661,7 @@
   </div>
 
   <!-- ===================================================================== -->
-  <!-- COMPLETE 244-COMPOUND DATASET (CS-001 THROUGH CS-244)                 -->
+  <!-- COMPLETE SPECIALTY DATASET (CS-001 THROUGH CS-244)                 -->
   <!-- ===================================================================== -->
   <script>
     const APPS_SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbx7PzUuscb9V304LYAKZzVVJde0A3juYNjP4jW-7LdaAJfIuhbIWHjBC94BBk2ByAvI2Q/exec";
@@ -615,29 +678,7 @@
     };
 
     function updateDynamicCounts(total) {
-      const heroBadge = document.getElementById("hero-db-badge");
-      if (heroBadge) {
-        const lastId = total > 0 ? "CS-" + String(total).padStart(3, "0") : "CS-000";
-        heroBadge.innerHTML = `<span class="w-2 h-2 rounded-full bg-catasyne-violet"></span> Verified ${total}-Compound Database • CS-001 to ${lastId}`;
-      }
-      const catSubtitle = document.getElementById("catalog-db-subtitle");
-      if (catSubtitle) {
-        const lastId = total > 0 ? "CS-" + String(total).padStart(3, "0") : "CS-000";
-        catSubtitle.textContent = `Complete Database • CS-001 – ${lastId}`;
-      }
-      const totalSpan = document.getElementById("total-compounds-count");
-      if (totalSpan) totalSpan.textContent = total;
-      const navSearchLabel = document.getElementById("nav-search-label");
-      if (navSearchLabel) navSearchLabel.textContent = `Search ${total} CAS...`;
-      const browseBtn = document.getElementById("hero-browse-btn");
-      if (browseBtn) browseBtn.textContent = `Browse ${total} Compounds`;
-      const infraCount = document.getElementById("infra-compound-count");
-      if (infraCount) infraCount.textContent = `${total} Verified Compounds`;
-      const detailReg = document.getElementById("detail-reg-note");
-      if (detailReg) {
-        const lastId = total > 0 ? "CS-" + String(total).padStart(3, "0") : "CS-000";
-        detailReg.textContent = `COA, MSDS, and SDS available on request for all ${total} catalog compounds (CS-001 through ${lastId}).`;
-      }
+      // Dynamic compound counts removed per request
     }
 
     document.addEventListener("DOMContentLoaded", () => {
@@ -684,6 +725,7 @@
         }
         if (e.key === "Escape") {
           closeCustomSynthesisModal();
+          closeContactModal();
           toggleRfqDrawer(false);
         }
       });
@@ -709,7 +751,7 @@
       const tabsContainer = document.getElementById("primary-industry-tabs");
       const allCount = CHEMICAL_DATABASE.length;
 
-      const makeBtn = (label, value, count) => {
+      const makeBtn = (label, value) => {
         const active = appState.primaryIndustry === value;
         return `
           <button onclick="selectPrimaryIndustry('${escapeAttr(value)}', false)" class="shrink-0 px-3.5 py-2 rounded-lg text-xs sm:text-sm transition-all ${
@@ -717,17 +759,23 @@
               ? "font-semibold bg-catasyne-indigo text-white"
               : "font-medium bg-catasyne-surface hover:bg-catasyne-lavender text-slate-600 border border-catasyne-border"
           }">
-            ${escapeHtml(label)} <span class="ml-1 font-mono-code text-xs opacity-75">(${count})</span>
+            ${escapeHtml(label)}
           </button>
         `;
       };
 
-      const indButtons = industries.map(ind => {
-        const cnt = CHEMICAL_DATABASE.filter(c => c.primaryIndustry === ind).length;
-        return makeBtn(ind, ind, cnt);
-      }).join("");
+      const indButtons = industries.map(ind => makeBtn(ind, ind)).join("");
 
-      tabsContainer.innerHTML = makeBtn("All Primary Industries", "All", allCount) + indButtons;
+      tabsContainer.innerHTML = makeBtn("All Primary Industries", "All") + indButtons;
+
+      const headerIndList = document.getElementById("header-industry-list");
+      if (headerIndList) {
+        headerIndList.innerHTML = industries.map(ind => `
+          <button type="button" onclick="selectIndustryFromHeader('${escapeAttr(ind)}')" class="w-full text-left px-4 py-2 text-xs text-slate-700 hover:bg-catasyne-lavender hover:text-catasyne-violet transition-colors">
+            ${escapeHtml(ind)}
+          </button>
+        `).join("");
+      }
     }
 
     function populatePrimaryCategorySelect() {
@@ -743,11 +791,10 @@
         appState.primaryCategory = "All";
       }
 
-      selectEl.innerHTML = `<option value="All">Primary Category: All (${categories.length})</option>` +
+      selectEl.innerHTML = `<option value="All">Primary Category: All Categories</option>` +
         categories.map(cat => {
-          const count = pool.filter(c => c.primaryCategory === cat).length;
           const selected = appState.primaryCategory === cat ? "selected" : "";
-          return `<option value="${escapeAttr(cat)}" ${selected}>${escapeHtml(cat)} (${count})</option>`;
+          return `<option value="${escapeAttr(cat)}" ${selected}>${escapeHtml(cat)}</option>`;
         }).join("");
     }
 
@@ -818,10 +865,13 @@
       const tableWrapEl = document.getElementById("catalog-table-container");
       const tableBodyEl = document.getElementById("catalog-table-body");
       const emptyEl = document.getElementById("catalog-empty-state");
-      const countEl = document.getElementById("results-count");
       const resetBtn = document.getElementById("btn-reset-filters");
-
-      countEl.textContent = list.length;
+      const statusLabel = document.getElementById("filter-status-label");
+      if (statusLabel) {
+        const indText = appState.primaryIndustry === "All" ? "All Industries" : appState.primaryIndustry;
+        const catText = appState.primaryCategory === "All" ? "All Categories" : appState.primaryCategory;
+        statusLabel.textContent = `${indText} • ${catText}`;
+      }
       const isFiltered = appState.primaryIndustry !== "All" || appState.primaryCategory !== "All" || appState.searchQuery !== "";
       resetBtn.classList.toggle("hidden", !isFiltered);
 
@@ -1020,6 +1070,59 @@
         </svg>
       `;
     }
+
+    function navigateBackToProducts() {
+      appState.activeCompoundId = null;
+      if (window.location.hash.startsWith("#/product/")) {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+      }
+      document.getElementById("product-details-view").classList.add("hidden");
+      document.getElementById("catalog-home-view").classList.remove("hidden");
+      renderCatalog();
+      setTimeout(() => {
+        const el = document.getElementById("catalog");
+        if (el) el.scrollIntoView({ behavior: "smooth" });
+      }, 40);
+    }
+
+    function toggleHeaderIndustryMenu(event) {
+      if (event) event.stopPropagation();
+      const menu = document.getElementById("header-industry-menu");
+      if (menu) menu.classList.toggle("hidden");
+    }
+
+    function selectIndustryFromHeader(industry) {
+      const menu = document.getElementById("header-industry-menu");
+      if (menu) menu.classList.add("hidden");
+      if (!document.getElementById("product-details-view").classList.contains("hidden")) {
+        showHomeView(true);
+      }
+      selectPrimaryIndustry(industry, true);
+    }
+
+    function openContactModal() {
+      const modal = document.getElementById("contact-modal");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeContactModal() {
+      const modal = document.getElementById("contact-modal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    document.addEventListener("click", (e) => {
+      const wrap = document.getElementById("header-industry-dropdown-wrap");
+      const menu = document.getElementById("header-industry-menu");
+      if (wrap && menu && !wrap.contains(e.target)) {
+        menu.classList.add("hidden");
+      }
+    });
 
     function navigateToHome(event) {
       if (event) event.preventDefault();
