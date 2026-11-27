@@ -132,6 +132,7 @@
         </div>
 
         <a href="#capabilities" onclick="navigateToSection(event, 'capabilities')" class="hover:text-catasyne-violet transition-colors">Sourcing &amp; RFQ</a>
+        <button type="button" onclick="openAboutModal()" class="hover:text-catasyne-violet transition-colors">About Us</button>
         <button type="button" onclick="openContactModal()" class="hover:text-catasyne-violet transition-colors">Contact Us</button>
       </nav>
 
@@ -187,6 +188,10 @@
       <a href="#capabilities" onclick="closeMobileMenu(); navigateToSection(event, 'capabilities')" class="block px-3 py-2.5 rounded-lg text-sm font-medium text-catasyne-indigo hover:bg-catasyne-lavender hover:text-catasyne-violet transition-colors">
         Sourcing &amp; RFQ
       </a>
+
+      <button type="button" onclick="closeMobileMenu(); openAboutModal()" class="w-full text-left block px-3 py-2.5 rounded-lg text-sm font-medium text-catasyne-indigo hover:bg-catasyne-lavender hover:text-catasyne-violet transition-colors">
+        About Us
+      </button>
 
       <button type="button" onclick="closeMobileMenu(); openContactModal()" class="w-full text-left block px-3 py-2.5 rounded-lg text-sm font-medium text-catasyne-indigo hover:bg-catasyne-lavender hover:text-catasyne-violet transition-colors">
         Contact Us
@@ -494,7 +499,10 @@
 
                 <div>
                   <span class="block text-[11px] font-semibold text-slate-400 uppercase tracking-wider mb-1">Compound Summary</span>
-                  <p id="detail-description" class="text-slate-600 leading-relaxed">—</p>
+                  <p id="detail-description" class="text-slate-600 leading-relaxed line-clamp-5">—</p>
+                  <button type="button" id="detail-description-toggle" onclick="toggleCompoundSummary()" class="hidden mt-1.5 text-xs font-semibold text-catasyne-violet hover:underline">
+                    Read more
+                  </button>
                 </div>
               </div>
             </div>
@@ -567,6 +575,78 @@
   </section>
 
   <!-- ===================================================================== -->
+  <!-- MODAL: ABOUT US                                                       -->
+  <!-- ===================================================================== -->
+  <div id="about-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-catasyne-indigo/50 backdrop-blur-xs">
+    <div class="bg-white border border-catasyne-border rounded-2xl max-w-2xl w-full max-h-[88vh] shadow-2xl overflow-hidden flex flex-col">
+      <div class="px-6 py-4 bg-catasyne-surface border-b border-catasyne-border flex items-center justify-between shrink-0">
+        <div>
+          <span class="text-[11px] font-mono-code uppercase tracking-wider text-catasyne-violet font-semibold">About CataSyne</span>
+          <h3 class="font-display text-lg font-bold text-catasyne-indigo">About CataSyne</h3>
+        </div>
+        <button type="button" onclick="closeAboutModal()" class="p-1.5 rounded-lg text-slate-400 hover:text-catasyne-indigo">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-5 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <div class="space-y-2">
+          <h4 class="font-display text-base font-bold text-catasyne-indigo">About CataSyne</h4>
+          <p class="font-semibold text-catasyne-indigo">We make buying and developing specialty chemicals simpler.</p>
+          <p>
+            Getting a chemical made is often harder than it should be. You need to find the right manufacturer, check quality, scale up, and arrange supply, usually with a different party at each step. We handle that for you, so you deal with one team from first request to delivery.
+          </p>
+        </div>
+
+        <div class="space-y-1.5">
+          <h4 class="font-display text-base font-bold text-catasyne-indigo">Our Vision</h4>
+          <p>
+            To become a globally recognized specialty chemicals company, connecting scientific innovation, advanced manufacturing, and international chemical supply to serve industries of the future.
+          </p>
+        </div>
+
+        <div class="space-y-1.5">
+          <h4 class="font-display text-base font-bold text-catasyne-indigo">How We Work</h4>
+          <ol class="list-decimal list-inside space-y-1">
+            <li>You tell us what you need. The chemical, the specification, the quantity.</li>
+            <li>We find the best route. Custom synthesis, or sourcing from a suitable manufacturer.</li>
+            <li>We check quality. You get clear documentation on what you're buying.</li>
+            <li>We deliver and keep supplying. One team from enquiry to delivery, for local or international orders.</li>
+          </ol>
+        </div>
+
+        <div class="space-y-1.5">
+          <h4 class="font-display text-base font-bold text-catasyne-indigo">Why CataSyne</h4>
+          <p>We believe a specialty chemical partnership should go beyond buying and selling. Here is what you can expect from us:</p>
+          <ul class="list-disc list-inside space-y-1">
+            <li>Straight answers. We tell you what is possible, what isn't, and how long it will take.</li>
+            <li>One point of contact from enquiry to delivery.</li>
+            <li>Technical understanding of your requirements.</li>
+            <li>Clear documentation for the products we supply.</li>
+            <li>Flexible orders, from small development batches to regular supply.</li>
+            <li>Long-term partnership, not one-off transactions.</li>
+          </ul>
+        </div>
+
+        <div class="space-y-1">
+          <h4 class="font-display text-base font-bold text-catasyne-indigo">Where We Work</h4>
+          <p>We're based in India and work with customers worldwide.</p>
+        </div>
+
+        <div class="p-4 rounded-xl bg-catasyne-surface border border-catasyne-border space-y-2">
+          <h4 class="font-display text-base font-bold text-catasyne-indigo">Talk to Us</h4>
+          <p>Have a requirement? Send us the details and we'll reply with a clear plan.</p>
+          <div>
+            <button type="button" onclick="closeAboutModal(); openContactModal();" class="inline-flex items-center px-3.5 py-2 rounded-lg bg-catasyne-violet hover:bg-catasyne-violetHover text-white text-xs font-semibold transition-colors">
+              Contact us
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
   <!-- MODAL: CONTACT US                                                     -->
   <!-- ===================================================================== -->
   <div id="contact-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-catasyne-indigo/50 backdrop-blur-xs">
@@ -619,7 +699,7 @@
           <div>
             <div class="text-[11px] font-mono-code uppercase tracking-wider text-slate-400 font-semibold">Address</div>
             <p class="text-slate-700 leading-relaxed mt-0.5">
-              5th Floor, Technopolis Knowledge Park, Mahakali Caves Road, MIDC, ANDHERI EAST, Mumbai, Maharashtra, India - 400093
+              5th Floor, Technopolis Knowledge Park, Mahakali Caves Road, MIDC, Andheri East, Mumbai, Maharashtra, India - 400093
             </p>
           </div>
         </div>
@@ -735,7 +815,7 @@
             Aelvon Technologies Private Limited
           </p>
           <p class="text-xs text-slate-500 leading-relaxed max-w-md">
-            5th Floor, Technopolis Knowledge Park, Mahakali Caves Road, MIDC, ANDHERI EAST, Mumbai, Maharashtra, India - 400093
+            5th Floor, Technopolis Knowledge Park, Mahakali Caves Road, MIDC, Andheri East, Mumbai, Maharashtra, India - 400093
           </p>
         </div>
 
@@ -763,13 +843,13 @@
         <div class="md:col-span-3 flex flex-col md:items-end justify-between gap-2 text-xs">
           <a href="#catalog" onclick="navigateToSection(event, 'catalog')" class="text-slate-600 hover:text-catasyne-violet transition-colors">Catalog</a>
           <a href="#capabilities" onclick="navigateToSection(event, 'capabilities')" class="text-slate-600 hover:text-catasyne-violet transition-colors">Sourcing &amp; RFQ</a>
-          <button type="button" onclick="openContactModal()" class="text-catasyne-violet font-semibold hover:underline">Contact Details Modal</button>
+          <button type="button" onclick="openAboutModal()" class="text-slate-600 hover:text-catasyne-violet transition-colors">About Us</button>
         </div>
       </div>
 
       <div class="mt-8 pt-6 border-t border-catasyne-border/70 flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] text-slate-400">
         <span>© CataSyne • Aelvon Technologies Private Limited</span>
-        <span>COA, MSDS, and SDS available on request.</span>
+        <span>ALL RIGHTS RESERVED.</span>
       </div>
     </div>
   </footer>
@@ -846,6 +926,7 @@
         if (e.key === "Escape") {
           closeCustomSynthesisModal();
           closeContactModal();
+          closeAboutModal();
           toggleRfqDrawer(false);
         }
       });
@@ -1017,9 +1098,6 @@
         gridEl.classList.remove("hidden");
         tableWrapEl.classList.add("hidden");
         gridEl.innerHTML = list.map(item => {
-          const signalClasses = item.ghsSignal === "Danger"
-            ? "bg-red-50 text-red-700 border-red-200"
-            : "bg-amber-50 text-amber-800 border-amber-200";
           return `
             <article onclick="openProductDetails('${item.id}')" class="cursor-pointer group bg-white border border-catasyne-border hover:border-catasyne-violet/60 rounded-2xl p-5 flex flex-col justify-between transition-all hover:shadow-md">
               <div>
@@ -1027,9 +1105,9 @@
                   <span class="font-mono-code text-xs font-semibold text-catasyne-indigo bg-catasyne-surface px-2.5 py-1 rounded-md border border-catasyne-border">
                     ${item.id} • CAS ${escapeHtml(item.cas)}
                   </span>
-                  <span class="font-mono-code text-[11px] font-semibold px-2 py-0.5 rounded border ${signalClasses}">
-                    ${escapeHtml(item.ghsSignal || "—")}
-                  </span>
+                  <button type="button" onclick="event.stopPropagation(); openQuickQuoteForCompound('${item.id}')" class="px-2.5 py-1 text-[11px] font-semibold text-catasyne-violet bg-catasyne-lavender hover:bg-catasyne-violet hover:text-white rounded-md transition-colors shrink-0">
+                    Get Quote
+                  </button>
                 </div>
 
                 <h3 class="font-display text-base font-bold text-catasyne-indigo group-hover:text-catasyne-violet transition-colors leading-snug">
@@ -1142,7 +1220,19 @@
       document.getElementById("detail-structure-formula-tag").textContent = `${item.formula} (MW ${Number(item.mw).toFixed(2)})`;
       document.getElementById("detail-smiles").textContent = item.smiles;
       document.getElementById("detail-inchikey").textContent = item.inchikey;
-      document.getElementById("detail-description").textContent = item.description;
+      const descEl = document.getElementById("detail-description");
+      const toggleBtn = document.getElementById("detail-description-toggle");
+      const fullDesc = item.description || "—";
+      descEl.textContent = fullDesc;
+      descEl.classList.add("line-clamp-5");
+      if (toggleBtn) {
+        toggleBtn.textContent = "Read more";
+        if (fullDesc.length > 260) {
+          toggleBtn.classList.remove("hidden");
+        } else {
+          toggleBtn.classList.add("hidden");
+        }
+      }
 
       // GHS Signal & Pictograms
       const signalBadge = document.getElementById("detail-ghs-signal-badge");
@@ -1275,6 +1365,39 @@
         showHomeView(true);
       }
       selectPrimaryIndustry(industry, true);
+    }
+
+    function openAboutModal() {
+      const modal = document.getElementById("about-modal");
+      if (modal) {
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+      }
+    }
+
+    function closeAboutModal() {
+      const modal = document.getElementById("about-modal");
+      if (modal) {
+        modal.classList.add("hidden");
+        modal.classList.remove("flex");
+      }
+    }
+
+    function toggleCompoundSummary() {
+      const descEl = document.getElementById("detail-description");
+      const toggleBtn = document.getElementById("detail-description-toggle");
+      if (!descEl || !toggleBtn) return;
+      const isClamped = descEl.classList.toggle("line-clamp-5");
+      toggleBtn.textContent = isClamped ? "Read more" : "Show less";
+    }
+
+    function openQuickQuoteForCompound(id) {
+      const item = CHEMICAL_DATABASE.find(c => c.id === id);
+      if (item) {
+        document.getElementById("modal-compound-name").value = item.name;
+        document.getElementById("modal-compound-cas").value = `${item.cas} (${item.id})`;
+      }
+      openCustomSynthesisModal();
     }
 
     function openContactModal() {
