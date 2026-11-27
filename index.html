@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>CataSyne | 244-Compound Specialty Chemicals Catalog &amp; Sourcing</title>
+  <title>CataSyne | Specialty Chemicals &amp; Sourcing</title>
 
   <!-- Google Fonts: Plus Jakarta Sans, Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -119,7 +119,7 @@
 
       <!-- Right: Quick Search Trigger, Inquiry List Drawer & RFQ CTA -->
       <div class="flex items-center gap-2.5 sm:gap-3">
-        <button onclick="focusCatalogSearch()" title="Search 244 Compounds (Press /)" class="hidden lg:flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-500 bg-catasyne-surface hover:bg-catasyne-lavender border border-catasyne-border rounded-lg transition-colors">
+        <button onclick="focusCatalogSearch()" title="Search Compounds (Press /)" class="hidden lg:flex items-center gap-2 px-3 py-2 text-xs font-medium text-slate-500 bg-catasyne-surface hover:bg-catasyne-lavender border border-catasyne-border rounded-lg transition-colors">
           <svg class="w-3.5 h-3.5 text-catasyne-indigo" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
           <span id="nav-search-label">Search CAS...</span>
           <kbd class="font-mono-code text-[10px] px-1.5 py-0.5 bg-white border border-catasyne-border rounded text-slate-400">/</kbd>
@@ -141,7 +141,7 @@
   </header>
 
   <!-- ===================================================================== -->
-  <!-- VIEW 1: HOME & 244-COMPOUND CATALOG VIEW                              -->
+  <!-- VIEW 1: HOME & COMPOUND CATALOG VIEW                              -->
   <!-- ===================================================================== -->
   <main id="catalog-home-view">
 
@@ -159,7 +159,7 @@
           </h1>
 
           <p class="text-base sm:text-lg text-slate-600 leading-relaxed max-w-2xl mx-auto mb-8">
-            Source verified specialty intermediates, catalysts, agrochemicals, electronics precursors, and performance molecules directly from the CataSyne 244-compound technical database.
+            Source verified specialty intermediates, catalysts, agrochemicals, electronics precursors, and performance molecules directly from the CataSyne compound technical database.
           </p>
 
           <div class="flex flex-wrap items-center justify-center gap-3.5 mb-10">
@@ -601,8 +601,8 @@
   <!-- COMPLETE 244-COMPOUND DATASET (CS-001 THROUGH CS-244)                 -->
   <!-- ===================================================================== -->
   <script>
-    const APPS_SCRIPT_API_URL = "YOUR_WEB_APP_URL_HERE";
-    let CHEMICAL_DATABASE_244 = [];
+    const APPS_SCRIPT_API_URL = "https://script.google.com/macros/s/AKfycbx7PzUuscb9V304LYAKZzVVJde0A3juYNjP4jW-7LdaAJfIuhbIWHjBC94BBk2ByAvI2Q/exec";
+    let CHEMICAL_DATABASE = [];
 
     // Application State (Filtering strictly on Primary Industry & Primary Category + optional search query)
     const appState = {
@@ -650,11 +650,11 @@
         fetch(APPS_SCRIPT_API_URL)
           .then(res => res.json())
           .then((data) => {
-            CHEMICAL_DATABASE_244 = Array.isArray(data) ? data : [];
-            appState.rfqCart = CHEMICAL_DATABASE_244.length > 0
-              ? [{ id: CHEMICAL_DATABASE_244[0].id, pack: "Lab Sample (5g – 100g)", qty: "1 unit" }]
+            CHEMICAL_DATABASE = Array.isArray(data) ? data : [];
+            appState.rfqCart = CHEMICAL_DATABASE.length > 0
+              ? [{ id: CHEMICAL_DATABASE[0].id, pack: "Lab Sample (5g – 100g)", qty: "1 unit" }]
               : [];
-            updateDynamicCounts(CHEMICAL_DATABASE_244.length);
+            updateDynamicCounts(CHEMICAL_DATABASE.length);
             initIndustryAndCategoryFilters();
             renderCatalog();
             updateRfqBadge();
@@ -691,7 +691,7 @@
 
     // Populate Primary Industry tabs, Hero quick pills, and Primary Category dropdown
     function initIndustryAndCategoryFilters() {
-      const industries = Array.from(new Set(CHEMICAL_DATABASE_244.map(c => c.primaryIndustry)));
+      const industries = Array.from(new Set(CHEMICAL_DATABASE.map(c => c.primaryIndustry)));
 
       // Quick pills on Hero
       const pillsEl = document.getElementById("quick-industry-pills");
@@ -707,7 +707,7 @@
 
     function renderPrimaryIndustryTabs(industries) {
       const tabsContainer = document.getElementById("primary-industry-tabs");
-      const allCount = CHEMICAL_DATABASE_244.length;
+      const allCount = CHEMICAL_DATABASE.length;
 
       const makeBtn = (label, value, count) => {
         const active = appState.primaryIndustry === value;
@@ -723,7 +723,7 @@
       };
 
       const indButtons = industries.map(ind => {
-        const cnt = CHEMICAL_DATABASE_244.filter(c => c.primaryIndustry === ind).length;
+        const cnt = CHEMICAL_DATABASE.filter(c => c.primaryIndustry === ind).length;
         return makeBtn(ind, ind, cnt);
       }).join("");
 
@@ -733,8 +733,8 @@
     function populatePrimaryCategorySelect() {
       const selectEl = document.getElementById("select-primary-category");
       const pool = appState.primaryIndustry === "All"
-        ? CHEMICAL_DATABASE_244
-        : CHEMICAL_DATABASE_244.filter(c => c.primaryIndustry === appState.primaryIndustry);
+        ? CHEMICAL_DATABASE
+        : CHEMICAL_DATABASE.filter(c => c.primaryIndustry === appState.primaryIndustry);
 
       const categories = Array.from(new Set(pool.map(c => c.primaryCategory))).sort();
 
@@ -753,7 +753,7 @@
 
     function selectPrimaryIndustry(industry, shouldScroll = false) {
       appState.primaryIndustry = industry;
-      const industries = Array.from(new Set(CHEMICAL_DATABASE_244.map(c => c.primaryIndustry)));
+      const industries = Array.from(new Set(CHEMICAL_DATABASE.map(c => c.primaryIndustry)));
       renderPrimaryIndustryTabs(industries);
       populatePrimaryCategorySelect();
       renderCatalog();
@@ -777,7 +777,7 @@
       appState.primaryCategory = "All";
       appState.searchQuery = "";
       document.getElementById("catalog-search-input").value = "";
-      const industries = Array.from(new Set(CHEMICAL_DATABASE_244.map(c => c.primaryIndustry)));
+      const industries = Array.from(new Set(CHEMICAL_DATABASE.map(c => c.primaryIndustry)));
       renderPrimaryIndustryTabs(industries);
       populatePrimaryCategorySelect();
       renderCatalog();
@@ -786,7 +786,7 @@
     // Filter strictly by Primary Industry & Primary Category + optional text search query
     function getFilteredCompounds() {
       const q = appState.searchQuery.toLowerCase();
-      return CHEMICAL_DATABASE_244.filter(item => {
+      return CHEMICAL_DATABASE.filter(item => {
         const matchIndustry = appState.primaryIndustry === "All" || item.primaryIndustry === appState.primaryIndustry;
         const matchCategory = appState.primaryCategory === "All" || item.primaryCategory === appState.primaryCategory;
         const matchSearch = !q ||
@@ -922,7 +922,7 @@
       const hash = window.location.hash;
       if (hash && hash.startsWith("#/product/")) {
         const id = hash.replace("#/product/", "").trim();
-        if (CHEMICAL_DATABASE_244.some(c => c.id === id)) {
+        if (CHEMICAL_DATABASE.some(c => c.id === id)) {
           showProductDetails(id, false);
           return;
         }
@@ -935,7 +935,7 @@
     }
 
     function showProductDetails(id, updateHash = true) {
-      const item = CHEMICAL_DATABASE_244.find(c => c.id === id);
+      const item = CHEMICAL_DATABASE.find(c => c.id === id);
       if (!item) return;
 
       appState.activeCompoundId = id;
@@ -1066,7 +1066,7 @@
 
     // RFQ & Inquiry List actions
     function addActiveCompoundToRfq() {
-      const item = CHEMICAL_DATABASE_244.find(c => c.id === appState.activeCompoundId);
+      const item = CHEMICAL_DATABASE.find(c => c.id === appState.activeCompoundId);
       if (!item) return;
       const pack = document.getElementById("detail-pack-select").value;
       const qty = document.getElementById("detail-qty-input").value.trim() || "1 unit";
@@ -1085,7 +1085,7 @@
     }
 
     function openRfqForActiveCompound() {
-      const item = CHEMICAL_DATABASE_244.find(c => c.id === appState.activeCompoundId);
+      const item = CHEMICAL_DATABASE.find(c => c.id === appState.activeCompoundId);
       if (item) {
         document.getElementById("modal-compound-name").value = item.name;
         document.getElementById("modal-compound-cas").value = `${item.cas} (${item.id})`;
@@ -1169,7 +1169,7 @@
 
       footer.classList.remove("hidden");
       container.innerHTML = appState.rfqCart.map(entry => {
-        const chem = CHEMICAL_DATABASE_244.find(c => c.id === entry.id);
+        const chem = CHEMICAL_DATABASE.find(c => c.id === entry.id);
         if (!chem) return "";
         return `
           <div class="p-3.5 rounded-xl bg-catasyne-surface border border-catasyne-border text-xs space-y-1.5">
@@ -1191,7 +1191,7 @@
       const company = document.getElementById("rfq-company").value;
       const email = document.getElementById("rfq-email").value;
       const summary = appState.rfqCart.map(entry => {
-        const chem = CHEMICAL_DATABASE_244.find(c => c.id === entry.id);
+        const chem = CHEMICAL_DATABASE.find(c => c.id === entry.id);
         return chem ? `${chem.id} - ${chem.name} (${chem.cas}) [${entry.pack} • ${entry.qty}]` : `${entry.id} [${entry.pack} • ${entry.qty}]`;
       }).join("; ");
 
